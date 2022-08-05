@@ -6,19 +6,10 @@ public class TicketingDto {
 	private String tic_num; //예매번호 pk
 	private String movie_title; //영화 제목
 	private String scr_datetime; //상영시간과 일자
-	private int movie_code;
 	private int scr_screen; //상영관
 	private String tic_seat; //좌석 번호
 	private int tic_payment; //결제 금액
 	
-	
-	
-	public int getMovie_code() {
-		return movie_code;
-	}
-	public void setMovie_code(int movie_code) {
-		this.movie_code = movie_code;
-	}
 	public String getTic_paytime() {
 		return tic_paytime;
 	}

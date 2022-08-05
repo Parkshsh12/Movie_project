@@ -18,7 +18,7 @@ public class FileUpload {
 		Integer maxSize = 10 * 1024 * 1024;
 		String encType = "utf8";
 		MovieDto movie = new MovieDto();
-		System.out.println(realPath);
+		
 		request.setCharacterEncoding("utf-8");
 
 		MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, encType,

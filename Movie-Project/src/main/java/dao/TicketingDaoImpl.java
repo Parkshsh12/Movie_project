@@ -136,15 +136,14 @@ public class TicketingDaoImpl implements TicketingDao {
 	public List<TicketingDto> getTicketingList(Criteria cri, String id) {
 		String sql;
 		if(cri.getText() == null || cri.getText().equals("")) {
-			sql = "select movie.movie_code, ticket.tic_paytime, ticket.tic_num, movie.movie_title, concat(screen.scr_date,' ', screen.scr_time) as scr_datetime, screen.scr_screen, ticket.tic_seat, ticket.tic_payment from ticket join screen on ticket.tic_code = screen.scr_code join movie on screen.scr_movie = movie.movie_code where tic_id = '"+id+"' order by tic_paytime desc limit ?, ?";
+			sql = "select ticket.tic_paytime, ticket.tic_num, movie.movie_title, concat(screen.scr_date,' ', screen.scr_time) as scr_datetime, screen.scr_screen, ticket.tic_seat, ticket.tic_payment from ticket join screen on ticket.tic_code = screen.scr_code join movie on screen.scr_movie = movie.movie_code where tic_id = '"+id+"' order by tic_paytime asc limit ?, ?";
 		} else {
-			sql = "select movie.movie_code, ticket.tic_paytime, ticket.tic_num, movie.movie_title, concat(screen.scr_date,' ', screen.scr_time) as scr_datetime, screen.scr_screen, ticket.tic_seat, ticket.tic_payment from ticket join screen on ticket.tic_code = screen.scr_code join movie on screen.scr_movie = movie.movie_code where tic_id = '"+id+"' and date_format((tic_paytime),'%Y-%m-%d') > now() - interval "+cri.getText()+" day order by tic_paytime desc limit ?, ?";
+			sql = "select ticket.tic_paytime, ticket.tic_num, movie.movie_title, concat(screen.scr_date,' ', screen.scr_time) as scr_datetime, screen.scr_screen, ticket.tic_seat, ticket.tic_payment from ticket join screen on ticket.tic_code = screen.scr_code join movie on screen.scr_movie = movie.movie_code where tic_id = '"+id+"' and date_format((tic_paytime),'%Y-%m-%d') > now() - interval "+cri.getText()+" day order by tic_paytime asc limit ?, ?";
 		}
 		List<TicketingDto> list = jdbcTemplate.query(sql, new RowMapper<TicketingDto>() {
 			@Override
 			public TicketingDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 				TicketingDto dto = new TicketingDto();
-				dto.setMovie_code(rs.getInt("movie_code"));
 				dto.setTic_paytime(rs.getString("tic_paytime"));
 				dto.setTic_num(rs.getString("tic_num"));
 				dto.setMovie_title(rs.getString("movie_title"));
